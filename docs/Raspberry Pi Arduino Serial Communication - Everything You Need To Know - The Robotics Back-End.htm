@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<link rel="profile" href="https://gmpg.org/xfn/11">
+<title>Raspberry Pi Arduino Serial Communication - Everything You Need To Know - The Robotics Back-End</title>
+<!-- This site is optimized with the Yoast SEO plugin v13.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Raspberry Pi Arduino Serial communication - with complete Python code example. Learn how to connect your boards together, setup software, and write code."/>
+<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+<link rel="canonical" href="https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Raspberry Pi Arduino Serial Communication - Everything You Need To Know - The Robotics Back-End" />
+<meta property="og:description" content="Raspberry Pi Arduino Serial communication - with complete Python code example. Learn how to connect your boards together, setup software, and write code." />
+<meta property="og:url" content="https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/" />
+<meta property="og:site_name" content="The Robotics Back-End" />
+<meta property="article:section" content="Raspberry Pi Tutorials" />
+<meta property="article:published_time" content="2019-11-11T15:10:07+00:00" />
+<meta property="article:modified_time" content="2020-01-27T11:34:56+00:00" />
+<meta property="og:updated_time" content="2020-01-27T11:34:56+00:00" />
+<meta property="og:image" content="https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_uno_serial_usb-1024x378.png" />
+<meta property="og:image:secure_url" content="https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_uno_serial_usb-1024x378.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="Raspberry Pi Arduino Serial communication - with complete Python code example. Learn how to connect your boards together, setup software, and write code." />
+<meta name="twitter:title" content="Raspberry Pi Arduino Serial Communication - Everything You Need To Know - The Robotics Back-End" />
+<meta name="twitter:site" content="@RoboticsBackend" />
+<meta name="twitter:image" content="https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_uno_serial_usb-1024x378.png" />
+<meta name="twitter:creator" content="@RoboticsBackend" />
+<script type='application/ld+json' class='yoast-schema-graph yoast-schema-graph--main'>{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://roboticsbackend.com/#organization","name":"Robotics Back-End","url":"https://roboticsbackend.com/","sameAs":["https://twitter.com/RoboticsBackend"],"logo":{"@type":"ImageObject","@id":"https://roboticsbackend.com/#logo","inLanguage":"en-US","url":"https://roboticsbackend.com/wp-content/uploads/2020/02/logo_hd.png","width":2500,"height":1875,"caption":"Robotics Back-End"},"image":{"@id":"https://roboticsbackend.com/#logo"}},{"@type":"WebSite","@id":"https://roboticsbackend.com/#website","url":"https://roboticsbackend.com/","name":"The Robotics Back-End","inLanguage":"en-US","description":"Program Robots Like a Boss","publisher":{"@id":"https://roboticsbackend.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://roboticsbackend.com/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"ImageObject","@id":"https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/#primaryimage","inLanguage":"en-US","url":"https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_uno_serial_usb.png","width":1188,"height":438,"caption":"Raspberry Pi Arduino Serial communication over USB cable"},{"@type":"WebPage","@id":"https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/#webpage","url":"https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/","name":"Raspberry Pi Arduino Serial Communication - Everything You Need To Know - The Robotics Back-End","isPartOf":{"@id":"https://roboticsbackend.com/#website"},"inLanguage":"en-US","primaryImageOfPage":{"@id":"https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/#primaryimage"},"datePublished":"2019-11-11T15:10:07+00:00","dateModified":"2020-01-27T11:34:56+00:00","description":"Raspberry Pi Arduino Serial communication - with complete Python code example. Learn how to connect your boards together, setup software, and write code."},{"@type":"Article","@id":"https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/#article","isPartOf":{"@id":"https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/#webpage"},"author":{"@id":"https://roboticsbackend.com/#/schema/person/f6586bf35f26e81e923718e382d0b715"},"headline":"Raspberry Pi Arduino Serial Communication &#8211; Everything You Need To Know","datePublished":"2019-11-11T15:10:07+00:00","dateModified":"2020-01-27T11:34:56+00:00","commentCount":"2","mainEntityOfPage":{"@id":"https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/#webpage"},"publisher":{"@id":"https://roboticsbackend.com/#organization"},"image":{"@id":"https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/#primaryimage"},"articleSection":"Arduino Tutorials,Raspberry Pi Tutorials","inLanguage":"en-US"},{"@type":["Person"],"@id":"https://roboticsbackend.com/#/schema/person/f6586bf35f26e81e923718e382d0b715","name":"ed","image":{"@type":"ImageObject","@id":"https://roboticsbackend.com/#authorlogo","inLanguage":"en-US","url":"https://secure.gravatar.com/avatar/984a2b567edeee239e85b19931b41a02?s=96&d=identicon&r=g","caption":"ed"},"sameAs":[]}]}</script>
+<!-- / Yoast SEO plugin. -->
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="The Robotics Back-End &raquo; Feed" href="https://roboticsbackend.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="The Robotics Back-End &raquo; Comments Feed" href="https://roboticsbackend.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="The Robotics Back-End &raquo; Raspberry Pi Arduino Serial Communication &#8211; Everything You Need To Know Comments Feed" href="https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/feed/" />
+<!-- <link rel='stylesheet' id='wp-block-library-css'  href='https://roboticsbackend.com/wp-includes/css/dist/block-library/style.min.css?ver=5.3.2' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='cookie-consent-style-css'  href='https://roboticsbackend.com/wp-content/plugins/uk-cookie-consent/assets/css/style.css?ver=5.3.2' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='ez-icomoon-css'  href='https://roboticsbackend.com/wp-content/plugins/easy-table-of-contents/vendor/icomoon/style.min.css?ver=1.7.1' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='ez-toc-css'  href='https://roboticsbackend.com/wp-content/plugins/easy-table-of-contents/assets/css/screen.min.css?ver=1.7.1' type='text/css' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//roboticsbackend.com/wp-content/cache/wpfc-minified/6wslt789/23myd.css" media="all"/>
+<style id='ez-toc-inline-css' type='text/css'>
+div#ez-toc-container p.ez-toc-title {font-size: 120%;}div#ez-toc-container p.ez-toc-title {font-weight: 500;}div#ez-toc-container ul li {font-size: 95%;}
+</style>
+<!-- <link rel='stylesheet' id='generate-style-grid-css'  href='https://roboticsbackend.com/wp-content/themes/generatepress/css/unsemantic-grid.min.css?ver=2.4.1' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='generate-style-css'  href='https://roboticsbackend.com/wp-content/themes/generatepress/style.min.css?ver=2.4.1' type='text/css' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//roboticsbackend.com/wp-content/cache/wpfc-minified/d3pxyfmm/23myd.css" media="all"/>
+<style id='generate-style-inline-css' type='text/css'>
+.entry-header .entry-meta {display:none;}.post-navigation {display:none;}
+body{background-color:#e6e6e6;color:#3a3a3a;}a, a:visited{color:#1e73be;}a:hover, a:focus, a:active{color:#000000;}body .grid-container{max-width:1200px;}.wp-block-group__inner-container{max-width:1200px;margin-left:auto;margin-right:auto;}.site-header .header-image{width:120px;}body, button, input, select, textarea{font-family:-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";}.entry-content > [class*="wp-block-"]:not(:last-child){margin-bottom:1.5em;}.main-navigation .main-nav ul ul li a{font-size:14px;}h1{font-weight:400;}h2{font-weight:400;}h3{font-weight:600;}@media (max-width:768px){.main-title{font-size:30px;}h1{font-size:30px;}h2{font-size:25px;}}.top-bar{background-color:#636363;color:#ffffff;}.top-bar a,.top-bar a:visited{color:#ffffff;}.top-bar a:hover{color:#303030;}.site-header{background-color:#ffffff;color:#3a3a3a;}.site-header a,.site-header a:visited{color:#3a3a3a;}.main-title a,.main-title a:hover,.main-title a:visited{color:#222222;}.site-description{color:#757575;}.main-navigation,.main-navigation ul ul{background-color:#222222;}.main-navigation .main-nav ul li a,.menu-toggle{color:#ffffff;}.main-navigation .main-nav ul li:hover > a,.main-navigation .main-nav ul li:focus > a, .main-navigation .main-nav ul li.sfHover > a{color:#ffffff;background-color:#3f3f3f;}button.menu-toggle:hover,button.menu-toggle:focus,.main-navigation .mobile-bar-items a,.main-navigation .mobile-bar-items a:hover,.main-navigation .mobile-bar-items a:focus{color:#ffffff;}.main-navigation .main-nav ul li[class*="current-menu-"] > a{color:#ffffff;background-color:#3f3f3f;}.main-navigation .main-nav ul li[class*="current-menu-"] > a:hover,.main-navigation .main-nav ul li[class*="current-menu-"].sfHover > a{color:#ffffff;background-color:#3f3f3f;}.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a{color:#ffffff;background-color:#3f3f3f;}.main-navigation ul ul{background-color:#3f3f3f;}.main-navigation .main-nav ul ul li a{color:#ffffff;}.main-navigation .main-nav ul ul li:hover > a,.main-navigation .main-nav ul ul li:focus > a,.main-navigation .main-nav ul ul li.sfHover > a{color:#ffffff;background-color:#4f4f4f;}.main-navigation .main-nav ul ul li[class*="current-menu-"] > a{color:#ffffff;background-color:#4f4f4f;}.main-navigation .main-nav ul ul li[class*="current-menu-"] > a:hover,.main-navigation .main-nav ul ul li[class*="current-menu-"].sfHover > a{color:#ffffff;background-color:#4f4f4f;}.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .one-container .container, .separate-containers .paging-navigation, .inside-page-header{background-color:#ffffff;}.entry-meta{color:#595959;}.entry-meta a,.entry-meta a:visited{color:#595959;}.entry-meta a:hover{color:#1e73be;}.sidebar .widget{background-color:#ffffff;}.sidebar .widget .widget-title{color:#000000;}.footer-widgets{background-color:#ffffff;}.footer-widgets .widget-title{color:#000000;}.site-info{color:#ffffff;background-color:#222222;}.site-info a,.site-info a:visited{color:#ffffff;}.site-info a:hover{color:#606060;}.footer-bar .widget_nav_menu .current-menu-item a{color:#606060;}input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="tel"],input[type="number"],textarea,select{color:#666666;background-color:#fafafa;border-color:#cccccc;}input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="search"]:focus,input[type="tel"]:focus,input[type="number"]:focus,textarea:focus,select:focus{color:#666666;background-color:#ffffff;border-color:#bfbfbf;}button,html input[type="button"],input[type="reset"],input[type="submit"],a.button,a.button:visited,a.wp-block-button__link:not(.has-background){color:#ffffff;background-color:#666666;}button:hover,html input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,a.button:hover,button:focus,html input[type="button"]:focus,input[type="reset"]:focus,input[type="submit"]:focus,a.button:focus,a.wp-block-button__link:not(.has-background):active,a.wp-block-button__link:not(.has-background):focus,a.wp-block-button__link:not(.has-background):hover{color:#ffffff;background-color:#3f3f3f;}.generate-back-to-top,.generate-back-to-top:visited{background-color:rgba( 0,0,0,0.4 );color:#ffffff;}.generate-back-to-top:hover,.generate-back-to-top:focus{background-color:rgba( 0,0,0,0.6 );color:#ffffff;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-40px;width:calc(100% + 80px);max-width:calc(100% + 80px);}.rtl .menu-item-has-children .dropdown-menu-toggle{padding-left:20px;}.rtl .main-navigation .main-nav ul li.menu-item-has-children > a{padding-right:20px;}@media (max-width:768px){.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .separate-containers .paging-navigation, .one-container .site-content, .inside-page-header, .wp-block-group__inner-container{padding:30px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-30px;width:calc(100% + 60px);max-width:calc(100% + 60px);}}.one-container .sidebar .widget{padding:0px;}/* End cached CSS */@media (max-width:768px){.main-navigation .menu-toggle,.main-navigation .mobile-bar-items,.sidebar-nav-mobile:not(#sticky-placeholder){display:block;}.main-navigation ul,.gen-sidebar-nav{display:none;}[class*="nav-float-"] .site-header .inside-header > *{float:none;clear:both;}}@font-face {font-family: "GeneratePress";src:  url("https://roboticsbackend.com/wp-content/themes/generatepress/fonts/generatepress.eot");src:  url("https://roboticsbackend.com/wp-content/themes/generatepress/fonts/generatepress.eot#iefix") format("embedded-opentype"),  url("https://roboticsbackend.com/wp-content/themes/generatepress/fonts/generatepress.woff2") format("woff2"),  url("https://roboticsbackend.com/wp-content/themes/generatepress/fonts/generatepress.woff") format("woff"),  url("https://roboticsbackend.com/wp-content/themes/generatepress/fonts/generatepress.ttf") format("truetype"),  url("https://roboticsbackend.com/wp-content/themes/generatepress/fonts/generatepress.svg#GeneratePress") format("svg");font-weight: normal;font-style: normal;}
+</style>
+<!-- <link rel='stylesheet' id='generate-mobile-style-css'  href='https://roboticsbackend.com/wp-content/themes/generatepress/css/mobile.min.css?ver=2.4.1' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='generate-blog-css'  href='https://roboticsbackend.com/wp-content/plugins/gp-premium/blog/functions/css/style-min.css?ver=1.9.1' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='enlighter-local-css'  href='https://roboticsbackend.com/wp-content/plugins/enlighter/resources/EnlighterJS.min.css?ver=3.10.0' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='sib-front-css-css'  href='https://roboticsbackend.com/wp-content/plugins/mailin/css/mailin-front.css?ver=5.3.2' type='text/css' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//roboticsbackend.com/wp-content/cache/wpfc-minified/6w5p85so/23myd.css" media="all"/>
+<script src='//roboticsbackend.com/wp-content/cache/wpfc-minified/207dqjb/23myd.js' type="text/javascript"></script>
+<!-- <script type='text/javascript' src='https://roboticsbackend.com/wp-includes/js/jquery/jquery.js?ver=1.12.4-wp'></script> -->
+<!-- <script type='text/javascript' src='https://roboticsbackend.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script> -->
+<script type='text/javascript'>
+/* <![CDATA[ */
+var sibErrMsg = {"invalidMail":"Please fill out valid email address","requiredField":"Please fill out required fields","invalidDateFormat":"Please fill out valid date format","invalidSMSFormat":"Please fill out valid phone number"};
+var ajax_sib_front_object = {"ajax_url":"https:\/\/roboticsbackend.com\/wp-admin\/admin-ajax.php","ajax_nonce":"de73b078cd","flag_url":"https:\/\/roboticsbackend.com\/wp-content\/plugins\/mailin\/img\/flags\/"};
+/* ]]> */
+</script>
+<script src='//roboticsbackend.com/wp-content/cache/wpfc-minified/8ts4pnld/23myd.js' type="text/javascript"></script>
+<!-- <script type='text/javascript' src='https://roboticsbackend.com/wp-content/plugins/mailin/js/mailin-front.js?ver=1579429400'></script> -->
+<link rel='https://api.w.org/' href='https://roboticsbackend.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://roboticsbackend.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://roboticsbackend.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.3.2" />
+<link rel='shortlink' href='https://roboticsbackend.com/?p=1343' />
+<link rel="alternate" type="application/json+oembed" href="https://roboticsbackend.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Froboticsbackend.com%2Fraspberry-pi-arduino-serial-communication%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://roboticsbackend.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Froboticsbackend.com%2Fraspberry-pi-arduino-serial-communication%2F&#038;format=xml" />
+<style id="ctcc-css" type="text/css" media="screen">
+#catapult-cookie-bar {
+box-sizing: border-box;
+max-height: 0;
+opacity: 0;
+z-index: 99999;
+overflow: hidden;
+color: #ddd;
+position: fixed;
+left: 0;
+bottom: 0;
+width: 100%;
+background-color: #464646;
+}
+#catapult-cookie-bar a {
+color: #fff;
+}
+#catapult-cookie-bar .x_close span {
+background-color: ;
+}
+button#catapultCookie {
+background:;
+color: ;
+border: 0; padding: 6px 9px; border-radius: 3px;
+}
+#catapult-cookie-bar h3 {
+color: #ddd;
+}
+.has-cookie-bar #catapult-cookie-bar {
+opacity: 1;
+max-height: 999px;
+min-height: 30px;
+}</style><link rel="pingback" href="https://roboticsbackend.com/xmlrpc.php">
+<meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript">
+(function() {window.sib ={equeue:[],client_key:"pwrkp5jproohjepor283q"};/* OPTIONAL: email for identify request*/
+window.sib.email_id = "";
+window.sendinblue = {}; for (var j = ['track', 'identify', 'trackLink', 'page'], i = 0; i < j.length; i++) { (function(k) { window.sendinblue[k] = function() { var arg = Array.prototype.slice.call(arguments); (window.sib[k] || function() { var t = {}; t[k] = arg; window.sib.equeue.push(t);})(arg[0], arg[1], arg[2]);};})(j[i]);}var n = document.createElement("script"),i = document.getElementsByTagName("script")[0]; n.type = "text/javascript", n.id = "sendinblue-js", n.async = !0, n.src = "https://sibautomation.com/sa.js?key=" + window.sib.client_key, i.parentNode.insertBefore(n, i), window.sendinblue.page();})();
+</script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107683820-4"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-107683820-4');
+</script>
+<link rel="icon" href="https://roboticsbackend.com/wp-content/uploads/2020/02/cropped-favicon-1-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://roboticsbackend.com/wp-content/uploads/2020/02/cropped-favicon-1-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://roboticsbackend.com/wp-content/uploads/2020/02/cropped-favicon-1-180x180.png" />
+<meta name="msapplication-TileImage" content="https://roboticsbackend.com/wp-content/uploads/2020/02/cropped-favicon-1-270x270.png" />
+<style type="text/css" id="wp-custom-css">
+/* Make right bar sticky on blog posts */
+@media (min-width: 769px) {
+body.single-post #right-sidebar {
+position: -webkit-sticky;
+position: sticky;
+top: 0;
+}
+}		</style>
+</head>
+<body class="post-template-default single single-post postid-1343 single-format-standard wp-custom-logo wp-embed-responsive post-image-above-header post-image-aligned-center right-sidebar nav-below-header fluid-header separate-containers active-footer-widgets-0 nav-search-enabled nav-aligned-left header-aligned-left dropdown-hover" itemtype="https://schema.org/Blog" itemscope>
+<a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>		<header id="masthead" class="site-header" itemtype="https://schema.org/WPHeader" itemscope>
+<div class="inside-header grid-container grid-parent">
+<div class="site-branding-container"><div class="site-logo">
+<a href="https://roboticsbackend.com/" title="The Robotics Back-End" rel="home">
+<img  class="header-image" alt="The Robotics Back-End" src="https://roboticsbackend.com/wp-content/uploads/2020/02/cropped-logo_small.png" title="The Robotics Back-End" />
+</a>
+</div><div class="site-branding">
+<p class="main-title" itemprop="headline">
+<a href="https://roboticsbackend.com/" rel="home">
+The Robotics Back-End
+</a>
+</p>
+<p class="site-description" itemprop="description">
+Program Robots Like a Boss
+</p>
+</div></div><!-- .site-branding-container -->			</div><!-- .inside-header -->
+</header><!-- #masthead -->
+<nav id="site-navigation" class="main-navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope>
+<div class="inside-navigation grid-container grid-parent">
+<form method="get" class="search-form navigation-search" action="https://roboticsbackend.com/">
+<input type="search" class="search-field" value="" name="s" title="Search" />
+</form>		<div class="mobile-bar-items">
+<span class="search-item">
+<a aria-label="Open Search Bar" href="#">
+</a>
+</span>
+</div><!-- .mobile-bar-items -->
+<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+<span class="mobile-menu">Menu</span>				</button>
+<div id="primary-menu" class="main-nav"><ul id="menu-main-menu" class=" menu sf-menu"><li id="menu-item-48" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-48"><a href="https://roboticsbackend.com/">Latest</a></li>
+<li id="menu-item-843" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-843"><a href="https://roboticsbackend.com/category/ros/">ROS</a></li>
+<li id="menu-item-844" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-844"><a href="https://roboticsbackend.com/category/raspberry-pi/">Raspberry Pi</a></li>
+<li id="menu-item-845" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-845"><a href="https://roboticsbackend.com/category/arduino/">Arduino</a></li>
+<li id="menu-item-1610" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1610"><a href="https://roboticsbackend.com/robotics-programming-courses/">Robotics Programming Courses</a></li>
+<li id="menu-item-1748" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1748"><a href="https://roboticsbackend.com/contact/">Contact</a></li>
+<li class="search-item"><a aria-label="Open Search Bar" href="#"></a></li></ul></div>			</div><!-- .inside-navigation -->
+</nav><!-- #site-navigation -->
+<div id="page" class="hfeed site grid-container container grid-parent">
+<div id="content" class="site-content">
+<div id="primary" class="content-area grid-parent mobile-grid-100 grid-75 tablet-grid-75">
+<main id="main" class="site-main">
+<article id="post-1343" class="post-1343 post type-post status-publish format-standard hentry category-arduino category-raspberry-pi" itemtype="https://schema.org/CreativeWork" itemscope>
+<div class="inside-article">
+<header class="entry-header">
+<h1 class="entry-title" itemprop="headline">Raspberry Pi Arduino Serial Communication &#8211; Everything You Need To Know</h1>			<div class="entry-meta">
+</div><!-- .entry-meta -->
+</header><!-- .entry-header -->
+<div class="entry-content" itemprop="text">
+<p>In this tutorial I&#8217;ll show you how to communicate between a Raspberry Pi and an Arduino board via Serial communication.</p>
+<p>First, I&#8217;ll quickly explain what is Serial communication. Then you&#8217;ll see how to setup your hardware and software, and we&#8217;ll dive into the Python code (Cpp for Arduino). A basic example at first, leading to a more complete application using a Raspberry Pi, an Arduino, and other electronic devices.</p>
+<p>This tutorial will work with a <strong>Raspberry Pi 4 (and earlier: 3B, 3B+)</strong> board, and <strong>any Arduino board</strong>. I&#8217;ll use mostly Arduino Uno but will give more details about the differences between Arduino boards when it comes to Serial communication.</p>
+<p>When working with electronic devices, communication is key. Each device &#8211; on top of doing well what it&#8217;s supposed to do &#8211; must be able to clearly communicate with other devices. That&#8217;s one of the most important thing to work on in order to switch from a very basic application to more complex ones.</p>
+<div id="ez-toc-container" class="counter-hierarchy counter-decimal ez-toc-grey">
+<div class="ez-toc-title-container">
+<p class="ez-toc-title">Table of Contents</p>
+<span class="ez-toc-title-toggle"><a class="ez-toc-pull-right ez-toc-btn ez-toc-btn-xs ez-toc-btn-default ez-toc-toggle"><i class="ez-toc-glyphicon ez-toc-icon-toggle"></i></a></span></div>
+<nav><ul class="ez-toc-list"><li><a href="#What_is_Serial_communication_with_UART" title="What is Serial communication (with UART)">What is Serial communication (with UART)</a><ul><li><a href="#UART_protocol" title="UART protocol">UART protocol</a></li><li><a href="#You_probably_already_know_Serial_communication" title="You probably already know Serial communication">You probably already know Serial communication</a></li></ul></li><li><a href="#Hardware_setup_for_Serial_communication" title="Hardware setup for Serial communication">Hardware setup for Serial communication</a><ul><li><a href="#Serial_via_USB" title="Serial via USB">Serial via USB</a></li><li><a href="#Serial_via_GPIOs" title="Serial via GPIOs">Serial via GPIOs</a></li></ul></li><li><a href="#Raspberry_Pi_Software_setup" title="Raspberry Pi Software setup">Raspberry Pi Software setup</a><ul><li><a href="#Detect_the_Arduino_board" title="Detect the Arduino board">Detect the Arduino board</a></li><li><a href="#Hardware_permissions_for_Serial" title="Hardware permissions for Serial">Hardware permissions for Serial</a></li><li><a href="#Install_Python_Serial_library_on_Raspberry_Pi" title="Install Python Serial library on Raspberry Pi">Install Python Serial library on Raspberry Pi</a></li></ul></li><li><a href="#Simple_Serial_communication_from_Arduino_to_Raspberry_Pi" title="Simple Serial communication from Arduino to Raspberry Pi">Simple Serial communication from Arduino to Raspberry Pi</a><ul><li><a href="#Arduino_code" title="Arduino code">Arduino code</a></li><li><a href="#Raspberry_Pi_Python_code" title="Raspberry Pi Python code">Raspberry Pi Python code</a></li><li><a href="#Testing_Serial_communication" title="Testing Serial communication">Testing Serial communication</a></li></ul></li><li><a href="#Bidirectional_Serial_communication_between_Raspberry_Pi_and_Arduino" title="Bidirectional Serial communication between Raspberry Pi and Arduino">Bidirectional Serial communication between Raspberry Pi and Arduino</a><ul><li><a href="#Arduino_code-2" title="Arduino code">Arduino code</a></li><li><a href="#Raspberry_Pi_Python_code-2" title="Raspberry Pi Python code">Raspberry Pi Python code</a></li><li><a href="#Testing_bidirectional_Serial_communication" title="Testing bidirectional Serial communication">Testing bidirectional Serial communication</a></li></ul></li><li><a href="#Raspberry_Pi_Arduino_Serial_communication_Application_example" title="Raspberry Pi Arduino Serial communication: Application example">Raspberry Pi Arduino Serial communication: Application example</a><ul><li><a href="#Schematics" title="Schematics">Schematics</a></li><li><a href="#Arduino_code-3" title="Arduino code">Arduino code</a></li><li><a href="#Raspberry_Pi_Python_code-3" title="Raspberry Pi Python code">Raspberry Pi Python code</a></li><li><a href="#Testing_the_application" title="Testing the application">Testing the application</a></li></ul></li><li><a href="#Conclusion" title="Conclusion">Conclusion</a></li></ul></nav></div>
+<h2><span class="ez-toc-section" id="What_is_Serial_communication_with_UART">What is Serial communication (with UART)</span></h2>
+<p>Serial communication is simply <strong>a way to transfer data</strong>. The data will be sent sequentially, one bit at a time (1 byte = 8 bits), contrary to parallel communication, where many bits are sent at the same time.</p>
+<h3><span class="ez-toc-section" id="UART_protocol">UART protocol</span></h3>
+<p>More specifically, when you use Serial with Arduino and Raspberry Pi, you&#8217;re using the UART protocol. UART means &#8220;Universal Asynchronous Reception and Transmission&#8221;.</p>
+<p>Basically it&#8217;s an <strong>asynchronous multi-master protocol</strong> based on the Serial communication, which will allow you to communicate between the 2 boards. Be reassured, there are libraries that will handle all the low layers for you.</p>
+<p>Multi-master means that all connected devices will be free to send data when they want. This is one of the main difference with master-slaves protocols, where only the master device can initiate a communication. Usually you&#8217;ll use other protocols such as I2C and SPI when you need master-slaves configurations: for example when you have one Arduino board and multiple sensors or actuators.</p>
+<p>The Arduino Uno board has one UART that you can use either with a USB cable or from the RX/TX pins (don&#8217;t use it with both at the same time). Some boards have more available UARTs. For example the Arduino Mega has different Serials (Serial, Serial1, Serial2, Serial3) and the Arduino Zero has a native USB port only (use SerialUSB instead of Serial).</p>
+<p>On the Raspberry Pi, you can connect many Serial devices on the USB ports. Each will have a different device name (we&#8217;ll see how to find them later in this tutorial). You can also use the GPIOs (RX0/TX0) for an additional UART.</p>
+<h3><span class="ez-toc-section" id="You_probably_already_know_Serial_communication">You probably already know Serial communication</span></h3>
+<p>You&#8217;ve certainly already used Serial communication many times. I&#8217;m sure you already know the Arduino Serial library, which allows you to log what&#8217;s happening in your code and get user input. When you use the Serial monitor, well, basically your Arduino IDE initiates a Serial communication with your Arduino. You can receive and send data directly from the Serial monitor.</p>
+<p>What we&#8217;ll do here is almost the same, except that instead of your Arduino IDE, the other side of the Serial communication will be a Raspberry Pi board. We&#8217;ll have to do some setup and write some code to make it work. Then, both Raspberry Pi and Arduino will be able to send messages to each other.</p>
+<p>Let&#8217;s now see how to physically connect the 2 boards together.</p>
+<h2><span class="ez-toc-section" id="Hardware_setup_for_Serial_communication">Hardware setup for Serial communication</span></h2>
+<p>There are 2 ways to connect your Raspberry Pi and Arduino for Serial communication.</p>
+<h3><span class="ez-toc-section" id="Serial_via_USB">Serial via USB</span></h3>
+<p>The easiest way is to use a USB cable between both board.</p>
+<p>On the Raspberry Pi side, a simple USB connector is all you need. You can choose any of the 4 USB ports available on the board.</p>
+<p>For Arduino, you will use the USB port that you use to upload code from your computer (with the Arduino IDE) to your board. Here the USB connector will depend on which version you have. For boards like Arduino Uno and Mega, the connector will be different from Arduino Nano, and from Arduino Zero.</p>
+<p>For this example I&#8217;ve used an Arduino Uno board.</p>
+<p><img class="size-large wp-image-1386 aligncenter" src="https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_uno_serial_usb-1024x378.png" alt="" width="1024" height="378" srcset="https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_uno_serial_usb-1024x378.png 1024w, https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_uno_serial_usb-300x111.png 300w, https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_uno_serial_usb-768x283.png 768w, https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_uno_serial_usb.png 1188w" sizes="(max-width: 1024px) 100vw, 1024px" /></p>
+<p>As you can see, it&#8217;s the simplest hardware connection you can make between Raspberry Pi and Arduino.</p>
+<p>Note: you will first need to connect your Arduino to your computer, so you can upload the code into the board. After that, connect the USB cable to the Raspberry Pi. The Raspberry Pi will power the Arduino via this cable.</p>
+<h3><span class="ez-toc-section" id="Serial_via_GPIOs">Serial via GPIOs</span></h3>
+<p>To make a Serial connection you can also use plain wires between the Raspberry Pi GPIOs and the Arduino pins.</p>
+<p><img class="size-large wp-image-1384 aligncenter" src="https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_serial_gpio-1024x522.png" alt="" width="1024" height="522" srcset="https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_serial_gpio-1024x522.png 1024w, https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_serial_gpio-300x153.png 300w, https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_serial_gpio-768x391.png 768w, https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_serial_gpio.png 1193w" sizes="(max-width: 1024px) 100vw, 1024px" /></p>
+<p>Depending on your Arduino board you might need to use a voltage level-shifter. The Raspberry Pi is operating at 3.3V. For Arduino boards like Due, 101, it will be fine because they also use 3.3V.</p>
+<p>But, for many Arduino, such as Uno, Mega, Leonardo, Nano, and many more, the board is operating at 5V. Thus, <strong>you need a 3.3V/5V level-shifter to protect the Raspberry Pi</strong> when connecting RX and TX (more info on <a href="https://roboticsbackend.com/raspberry-pi-3-pins/">Raspberry Pi pins</a> and <a href="https://roboticsbackend.com/arduino-uno-pins-a-complete-practical-guide/">Arduino Uno pins</a>).</p>
+<p>For the rest of this tutorial we&#8217;ll use the setup with the USB cable. This will be easier to manage and unless you have a good reason not too, you should prefer using the USB cable instead of plain gpios for Serial communication.</p>
+<h2><span class="ez-toc-section" id="Raspberry_Pi_Software_setup">Raspberry Pi Software setup</span></h2>
+<p>You don&#8217;t need any special setup for Arduino. Just make sure you have downloaded and installed the Arduino IDE.</p>
+<p>Now, on your Raspberry Pi, a few things are required to make the communication work.</p>
+<p>Connect to your Raspberry Pi, either via ssh, or by plugin a screen+mouse+keyboard, and open a terminal. If you haven&#8217;t installed an OS on your Pi yet, you can install <a href="https://www.raspberrypi.org/documentation/installation/installing-images/" target="_blank" rel="noopener">Raspbian</a> or <a href="https://roboticsbackend.com/install-ubuntu-mate-18-04-on-raspberry-pi-3-b/" target="_blank" rel="noopener">Ubuntu</a> very easily on a SD card.</p>
+<h3><span class="ez-toc-section" id="Detect_the_Arduino_board">Detect the Arduino board</span></h3>
+<p>When connecting the Arduino with a USB cable, you should see it appear as /dev/ttyACM0, or /dev/ttyUSB0 (sometimes the number can be different, for example /dev/ttyACM1).</p>
+<p>Simply run <code class="EnlighterJSRAW" data-enlighter-language="generic">ls /dev/tty*</code> and you should see it. At this point if you&#8217;re not sure which device is the Arduino board, simply disconnect the board (remove the USB cable), and run <code class="EnlighterJSRAW" data-enlighter-language="generic">ls /dev/tty*</code> again. This way you will easily spot the serial device name of your Arduino.</p>
+<h3><span class="ez-toc-section" id="Hardware_permissions_for_Serial">Hardware permissions for Serial</span></h3>
+<p>Also, you may want to add your user to the dialout group, to avoid errors such as: serial.serialutil.SerialException: [Errno 13] could not open port /dev/ttyACM0: [Errno 13] Permission denied: &#8216;/dev/ttyACM0&#8217;</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-linenumbers="false">$ sudo adduser your_username dialout</pre>
+<p>This will make sure you have access to Serial devices (/dev/ttyACMx, /dev/ttyUSBx, &#8230;).</p>
+<p>After you&#8217;ve added yourself to the dialout group, you need to <strong>reboot your Pi (or at least logout/login) to apply the change</strong> &#8211; learn more about <a href="https://roboticsbackend.com/raspberry-pi-hardware-permissions/">Raspberry Pi hardware permissions</a>.</p>
+<h3><span class="ez-toc-section" id="Install_Python_Serial_library_on_Raspberry_Pi">Install Python Serial library on Raspberry Pi</span></h3>
+<p>You need to install a library to be able to use the Serial interface with Python.</p>
+<p>For this tutorial we&#8217;ll use the pySerial library (<a href="https://pyserial.readthedocs.io/en/latest/pyserial.html" target="_blank" rel="noopener">documentation</a> for Python 3). To install it:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-linenumbers="false">python3 -m pip install pyserial</pre>
+<p>This Python library is well-known and used in a lot of applications.</p>
+<p>When installing, if you get an error such as &#8220;/usr/bin/python3: No module named pip&#8221;, then you need to install pip first with <code class="EnlighterJSRAW" data-enlighter-language="generic">sudo apt install python3-pip</code>.</p>
+<h2><span class="ez-toc-section" id="Simple_Serial_communication_from_Arduino_to_Raspberry_Pi">Simple Serial communication from Arduino to Raspberry Pi</span></h2>
+<p>Let&#8217;s start with a very simple program.</p>
+<h3><span class="ez-toc-section" id="Arduino_code">Arduino code</span></h3>
+<p>Upload this code from your computer to your Arduino, using the Arduino IDE.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="cpp">void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println("Hello from Arduino!");
+  delay(1000);
+}</pre>
+<p>First, we initialize the Serial communication, and choose a baud rate, here 9600. 9600 is a commonly used baud rate, and also a pretty low one. In your future applications you can use a baud rate of 57600 or even 115200 without any problem. For this tutorial we&#8217;ll continue with 9600.</p>
+<p>Every second we make the Arduino send a string with Serial.println(). the println() function will add a newline character &#8216;\n&#8217; at the end of the string.</p>
+<p>You can open the Serial monitor to see the string on your computer.</p>
+<h3><span class="ez-toc-section" id="Raspberry_Pi_Python_code">Raspberry Pi Python code</span></h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="python">#!/usr/bin/env python3
+import serial
+
+if __name__ == '__main__':
+    ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+    ser.flush()
+
+    while True:
+        if ser.in_waiting &gt; 0:
+            line = ser.readline().decode('utf-8').rstrip()
+            print(line)</pre>
+<p>So, what does this code do?</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="python">#!/usr/bin/env python3
+import serial
+</pre>
+<p>First, we import the serial library which we previously installed.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-lineoffset="4">if __name__ == '__main__':
+    ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)</pre>
+<p>The Serial communication is initialized by calling serial.Serial() along with a few parameters:</p>
+<ul>
+<li>Serial device name for the Arduino: usually &#8216;/dev/ttyACM0&#8217;, &#8216;/dev/ttyUSB0&#8217;, or similar.</li>
+<li>Baud rate: this parameter is very important. <strong>You need to use the same baud rate as the one you used on Arduino</strong>, or else everything you&#8217;ll read and write will be garbage. So, we choose 9600 as we did in the Arduino sketch.</li>
+<li>timeout: this is a timeout for read operations. Here we set it to 1 second. It means that when we read from Serial, the program won&#8217;t be stuck forever if the data is not coming. After 1 second or reading, if not all bytes are received, the function will return the already received bytes.</li>
+</ul>
+<p>So, serial.Serial() returns an object that you can use for all your Serial operations. We store it in the &#8216;ser&#8217; variable.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-lineoffset="6">    ser.flush()</pre>
+<p>Then we use the flush() function. This will flush any input and output buffer, so it will avoid receiving or sending weird/not useful/not complete data at the beginning of the communication.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-lineoffset="8">    while True:
+        if ser.in_waiting &gt; 0:
+            line = ser.readline().decode('utf-8').rstrip()
+            print(line)</pre>
+<p>In an infinite loop (think of the loop() function in the Arduino sketch), we check if some data is available with the in_waiting attribute (don&#8217;t put parenthesis, this is not a function). If yes, we can read the data.</p>
+<p>The readline() function will read all bytes until a newline character is detected.</p>
+<p>If we just printed what we received we would see b&#8217;Hello from Arduino!\r\n&#8217;. You receive bytes when you read from Serial, and you have to convert (decode) those bytes into the appropriate data type. So, we use decode(&#8216;utf-8&#8217;) &#8211; you can also use decode(&#8216;ascii&#8217;) &#8211; to decode the received data to a string.</p>
+<p>Finally, the rstrip() function is specific to strings, it allows you to remove any trailing characters (newline, carriage return). This way we can remove the &#8216;\r&#8217; and &#8216;\n&#8217; and get a proper string.</p>
+<p>Note: here we read a complete line every time. If you want to read a certain amount of bytes &#8211; one or more &#8211; use the read(size=1) function.</p>
+<h3><span class="ez-toc-section" id="Testing_Serial_communication">Testing Serial communication</span></h3>
+<p>Now, unplug your Arduino board from your computer and connect it to your Raspberry Pi board.</p>
+<p>The Arduino code is already running, as soon as it&#8217;s powered up.</p>
+<p>On the Raspberry Pi, make the Python file executable and launch it.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-linenumbers="false">$ chmod +x receive_serial_data_from_arduino.py
+$ ./receive_serial_data_from_arduino.py 
+Hello from Arduino!
+Hello from Arduino!
+Hello from Arduino!</pre>
+<p>It works! The string sent by Arduino every second is displayed on the Raspberry Pi terminal.</p>
+<h2><span class="ez-toc-section" id="Bidirectional_Serial_communication_between_Raspberry_Pi_and_Arduino">Bidirectional Serial communication between Raspberry Pi and Arduino</span></h2>
+<p>Let&#8217;s make things a little bit more interesting. You&#8217;ve seen how to send data from Arduino to Raspberry Pi. In this part you&#8217;ll see how to talk from Raspberry Pi to Arduino. Thus you&#8217;ll have both sides of the communication and you&#8217;ll be able to create programs that wait for each other&#8217;s input.</p>
+<h3><span class="ez-toc-section" id="Arduino_code-2">Arduino code</span></h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="cpp">void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (Serial.available() &gt; 0) {
+    String data = Serial.readStringUntil('\n');
+    Serial.print("You sent me: ");
+    Serial.println(data);
+  }
+}</pre>
+<p>Here we check if the Arduino has received data with Serial.available(). This will give you the number of bytes already arrived and stored in the receive buffer.</p>
+<p>If some data has arrived, we use Serial.readStringUntil() with a newline character &#8216;\n&#8217; to get the next line. This is similar to the readline() function. All the bytes received until &#8216;\n&#8217; are automatically converted and added in an Arduino String object.</p>
+<p>Then, we just print back the data we received, with an additional piece of text.</p>
+<p>Note: if you want to read bytes one by one, you can do so with the Serial.read() function. Then you&#8217;ll have to convert this(those) byte(s) if needed: int, String, etc.</p>
+<h3><span class="ez-toc-section" id="Raspberry_Pi_Python_code-2">Raspberry Pi Python code</span></h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="python">#!/usr/bin/env python3
+import serial
+import time
+
+if __name__ == '__main__':
+    ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+    ser.flush()
+
+    while True:
+        ser.write(b"Hello from Raspberry Pi!\n")
+        line = ser.readline().decode('utf-8').rstrip()
+        print(line)
+        time.sleep(1)</pre>
+<p>Use the pySerial function write() to send data to the Arduino. Here you can see that I&#8217;ve added a &#8216;b&#8217; before the string to send. This will encode the string to bytes, because you can only send bytes through Serial. Any data which is not a byte or byte array must be converted before being sent. If you just try to send the string like that, you&#8217;ll get this error &#8221; TypeError: unicode strings are not supported, please encode to bytes: &#8216;Hello from Raspberry Pi!&#8217; &#8221;</p>
+<p>Note: instead of <code class="EnlighterJSRAW" data-enlighter-language="python">ser.write(b"Hello from Raspberry Pi!\n")</code> you could&#8217;ve written <code class="EnlighterJSRAW" data-enlighter-language="python">ser.write("Hello from Raspberry Pi!\n".encode('utf-8'))</code> or <code class="EnlighterJSRAW" data-enlighter-language="python">ser.write("Hello from Raspberry Pi!\n".encode('ascii'))</code>. This will do the same thing. The encode() function will take the string and encode it for Serial.</p>
+<p>Also, we add a newline character &#8216;\n&#8217; because that&#8217;s what the Arduino is expected to end its reading with Serial.readStringUntil(&#8216;\n&#8217;).</p>
+<p>Then, we do the same thing as we did before: we read a line, decode it to string, and remove any trailing character. We&#8217;re not using the ser.in_waiting here, because for this specific application we know that the Arduino will send back some data just after it has received the string. Also, we have a 1 second timeout to avoid being stuck on this line.</p>
+<p>Finally, we print the received string and wait for 1 second with time.sleep() before sending the next string over Serial.</p>
+<h3><span class="ez-toc-section" id="Testing_bidirectional_Serial_communication">Testing bidirectional Serial communication</span></h3>
+<p>On your Raspberry Pi, make your Python file executable and launch it.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-linenumbers="false">$ chmod +x bidirectional_serial_communication.py 
+$ ./bidirectional_serial_communication.py 
+You sent me: Hello from Raspberry Pi!
+You sent me: Hello from Raspberry Pi!
+You sent me: Hello from Raspberry Pi!</pre>
+<p>Success! The Arduino received the string, and sent it back with a few more words. Then the Raspberry Pi received and printed the final string.</p>
+<h2><span class="ez-toc-section" id="Raspberry_Pi_Arduino_Serial_communication_Application_example">Raspberry Pi Arduino Serial communication: Application example</span></h2>
+<p>Now that you know how to setup your Arduino and Raspberry Pi for Serial communication, and write programs to talk between each board, let&#8217;s create a more complex application.</p>
+<p>In this application, 4 LEDs and one push button will be connected to the Arduino board.</p>
+<p>The Raspberry Pi and Arduino will be connected with a USB cable and use Serial communication to talk to each other.</p>
+<p>Here&#8217;s the result we want to get:</p>
+<ul>
+<li>When the push button is pressed, the Arduino will send a notification to the Raspberry Pi (a simple byte).</li>
+<li>The Raspberry Pi will then compute a random integer number between 1 and 4, and send it to the Arduino.</li>
+<li>The Arduino will power on the LED related to this number, and power off the other LEDs.</li>
+</ul>
+<p>This will make you practice on the communication and synchronization of tasks between Arduino and Raspberry Pi.</p>
+<p>If you arrived at this point of the tutorial (congrats!) I encourage you to try to write the code by yourself before you read the code I&#8217;ve provided below. Also, there is not only one possible code to meet those requirements, so your code might be different from mine, it&#8217;s totally OK. You can get help from the <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/" target="_blank" rel="noopener">Arduino Serial reference</a> and the <a href="https://pyserial.readthedocs.io/en/latest/pyserial_api.html" target="_blank" rel="noopener">pySerial API reference</a>.</p>
+<h3><span class="ez-toc-section" id="Schematics">Schematics</span></h3>
+<p><img class="size-full wp-image-1385 aligncenter" src="https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_serial_application.png" alt="" width="938" height="656" srcset="https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_serial_application.png 938w, https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_serial_application-300x210.png 300w, https://roboticsbackend.com/wp-content/uploads/2019/11/raspberrypi_arduino_serial_application-768x537.png 768w" sizes="(max-width: 938px) 100vw, 938px" /></p>
+<p>To make this circuit:</p>
+<ul>
+<li>Connect 4 LEDs to pins 9-12. Add a 220 Ohm resistor for each LED between the longer leg and the digital pin. The shorter leg is connected to the ground.</li>
+<li>Add a push button with a 10kOhm resistor connected to the ground (pull-down resistor). One side of the button is connected to 5V, the other to digital pin 5 for reading.</li>
+<li>Don&#8217;t forget to make a common ground between all components: The Arduino board, the 4 LEDs and the push button. Don&#8217;t add any power supply if you haven&#8217;t at least correctly connected the grounds.</li>
+<li>Connect the Arduino and Raspberry Pi via a USB cable, for the Serial communication (the USB cable already manages the ground connection between your 2 boards).</li>
+</ul>
+<h3><span class="ez-toc-section" id="Arduino_code-3">Arduino code</span></h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="cpp">#define LED_1_PIN 9
+#define LED_2_PIN 10
+#define LED_3_PIN 11
+#define LED_4_PIN 12
+
+#define BUTTON_PIN 5
+
+byte lastButtonState = LOW;
+byte currentButtonState = LOW;
+unsigned long lastButtonDebounceTime = 0;
+unsigned long buttonDebounceDelay = 20;
+
+void powerOffAllLEDs()
+{
+    digitalWrite(LED_1_PIN, LOW);
+    digitalWrite(LED_2_PIN, LOW);
+    digitalWrite(LED_3_PIN, LOW);
+    digitalWrite(LED_4_PIN, LOW);
+}
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(LED_1_PIN, OUTPUT);
+  pinMode(LED_2_PIN, OUTPUT);
+  pinMode(LED_3_PIN, OUTPUT);
+  pinMode(LED_4_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT);
+
+  powerOffAllLEDs();
+}
+
+void loop()
+{
+  byte readValue = digitalRead(BUTTON_PIN);
+
+  if (readValue != lastButtonState) {
+    lastButtonDebounceTime = millis();
+  }
+
+  if (millis() - lastButtonDebounceTime &gt; buttonDebounceDelay) {
+    if (readValue != currentButtonState) {
+      currentButtonState = readValue;
+      if (currentButtonState == HIGH) {
+        Serial.write(18);
+      }
+    }
+  }
+
+  lastButtonState = readValue;
+
+  if (Serial.available() &gt; 0) {
+    int ledNumber = Serial.read() - '0';
+
+    powerOffAllLEDs();
+    
+    switch (ledNumber) {
+      case 1:
+        digitalWrite(LED_1_PIN, HIGH);
+        break;
+      case 2:
+        digitalWrite(LED_2_PIN, HIGH);
+        break;
+      case 3:
+        digitalWrite(LED_3_PIN, HIGH);
+        break;
+      case 4:
+        digitalWrite(LED_4_PIN, HIGH);
+        break;
+      default: 
+        // wrong pin number, do nothing
+        // all LEDs will be powered off
+        break;
+    }
+  }
+}
+</pre>
+<p>In the setup() function we initialize the pin modes for all 4 LEDs and the push button. We also make sure all LEDs are powered off.</p>
+<p>Then in the loop() we do 2 things: handling the push button and managing the 4 LEDs. Both actions are done one by one, but they are handled very fast so it&#8217;s just as if they were happening at the same time. That&#8217;s a case of <a href="https://roboticsbackend.com/how-to-do-multitasking-with-arduino/">multitasking an Arduino program</a>.</p>
+<p>First action: handling the push button.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="cpp" data-enlighter-lineoffset="35">byte readValue = digitalRead(BUTTON_PIN);
+
+if (readValue != lastButtonState) {
+  lastButtonDebounceTime = millis();
+}
+
+if (millis() - lastButtonDebounceTime &gt; buttonDebounceDelay) {
+  if (readValue != currentButtonState) {
+    currentButtonState = readValue;
+    if (currentButtonState == HIGH) {
+      Serial.write(18);
+    }
+  }
+}
+
+lastButtonState = readValue;</pre>
+<p>We need to debounce the button to avoid unwanted values. When we find out that the button is pressed, we can send some data to the Raspberry Pi via Serial.</p>
+<p>Here I&#8217;ve used the Serial.write() function: it sends a byte or series of bytes. This is different from Serial.print() which will make the output nice to see on the Serial monitor. As we&#8217;re talking to another machine and not a human, no problem with that.</p>
+<p>The number we send here is 18. This is just a random number that we&#8217;ll associate with the state &#8220;button has been pushed&#8221;, so when the Raspberry Pi will receive a number, it will check if it&#8217;s equal to 18. You could imagine sending different actions or messages via Serial, using different numbers.</p>
+<p>Note: usually you can also use <a href="https://roboticsbackend.com/arduino-interrupts/">Arduino interrupts</a> to know when a button has been pushed. If you do so,<strong> don&#8217;t use the Serial library in the interrupt</strong>. If you absolutely have to use interrupts, then set a flag inside the interrupt (a simple boolean variable), and use Serial inside your loop() function.</p>
+<p>And the second action: managing the 4 LEDs.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="cpp" data-enlighter-lineoffset="52">  if (Serial.available() &gt; 0) {
+    int ledNumber = Serial.read() - '0';
+
+    powerOffAllLEDs();
+    
+    switch (ledNumber) {
+      case 1:
+        digitalWrite(LED_1_PIN, HIGH);
+        break;
+      case 2:
+        digitalWrite(LED_2_PIN, HIGH);
+        break;
+      case 3:
+        digitalWrite(LED_3_PIN, HIGH);
+        break;
+      case 4:
+        digitalWrite(LED_4_PIN, HIGH);
+        break;
+      default: 
+        // wrong pin number, do nothing
+        // all LEDs will be powered off
+        break;
+    }
+  }</pre>
+<p>First we check if the Arduino has received some data from the Raspberry Pi over the Serial communication.</p>
+<p>If yes, we read the next byte with Serial.read(). Here you can notice a small trick, consisting of subtracting with &#8216;0&#8217;, which will convert the character to the number it represents &#8211; in this case an integer.</p>
+<p>After that it&#8217;s quite simple. We power off all LEDs, and then power on only the LED associated with the number: 1, 2, 3 or 4. In case a wrong value is sent, no LED will be powered on.</p>
+<h3><span class="ez-toc-section" id="Raspberry_Pi_Python_code-3">Raspberry Pi Python code</span></h3>
+<pre class="EnlighterJSRAW" data-enlighter-language="python">#!/usr/bin/env python3
+import serial
+import random
+
+if __name__ == '__main__':
+    ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+    ser.flush()
+
+    while True:
+        number = ser.read()
+        if number != b'':
+            if int.from_bytes(number, byteorder='big') == 18:
+                led_number = random.randint(1,4)
+                print("Button has been pressed.")
+                print("Sending number " + str(led_number) + " to Arduino.")
+                ser.write(str(led_number).encode('utf-8'))</pre>
+<p>First we add one import line: the Python random library.</p>
+<p>In the infinite loop (&#8220;while True&#8221;), we first read one byte from Serial. The timeout is set at 1 second. If nothing is received after one second, the read() function will return b&#8221;.</p>
+<p>So we check if what we received is simply empty (b&#8221;) or if there was really something. In this latter case, we convert the data we received to an integer so we can use in the code. For that we use the function int.from_bytes(), which will decode b&#8217;0x12&#8242; (the hexadecimal representation of 18 is 0x12) to 18.</p>
+<p>As you can see we check that the number is 18 to continue the action. If you have different commands to handle, using a different number for each command is a good practice.</p>
+<p>We choose a random number between 1 and 4 to determine which LED to power on. Then we send it with the pySerial write() function. To send an int via Serial, we first convert it as a string with str(), and then encode it with encode(&#8216;utf-8&#8217;).</p>
+<h3><span class="ez-toc-section" id="Testing_the_application">Testing the application</span></h3>
+<p>Now you can connect the Arduino to the Raspberry Pi using the USB cable. The Raspberry Pi will then supply the power for both the Arduino and the 4 LEDs.</p>
+<p>If you have many things connected to your Arduino, you might want to add an external power supply on the Arduino power supply connector. For example, if you want to use a stepper motor, the Raspberry Pi will never have enough current for itself + the Arduino + the motor. In this case, with 4 LEDs that&#8217;s OK.</p>
+<p>Run your Python script and press the push button. You will see a log and one of the LED on the Arduino will be powered on.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-linenumbers="false">$ chmod +x arduino_raspberry_pi_leds_button.py
+$ ./arduino_raspberry_pi_leds_button.py 
+Button has been pressed.
+Sending number 3 to Arduino.
+Button has been pressed.
+Sending number 2 to Arduino.
+Button has been pressed.
+Sending number 4 to Arduino.
+Button has been pressed.
+Sending number 1 to Arduino.
+Button has been pressed.
+Sending number 3 to Arduino.
+Button has been pressed.
+Sending number 3 to Arduino.</pre>
+<p>Every time you press the button:</p>
+<ul>
+<li>The Arduino will detect it and send 18 to the Raspberry Pi.</li>
+<li>The Raspberry Pi will receive some data from Serial. It will check if the number equal to 18. If yes a random number (between 1-4) is chosen. The Raspberry Pi will send this number to the Arduino.</li>
+<li>The Arduino will receive this number and power on the associated LED.</li>
+</ul>
+<h2><span class="ez-toc-section" id="Conclusion">Conclusion</span></h2>
+<p>In this tutorial you have learnt how to communicate between your Raspberry Pi and Arduino board via Serial.</p>
+<p>Now, in real life, will this be useful to you? The answer is yes, and pretty often.</p>
+<p>The Raspberry Pi is great for having a lot of computation power embedded in your application. You can run complete softwares in many languages, web servers, robotics applications, etc. The Raspberry Pi certainly has some GPIOs which you may use, but they are not as good as the Arduino ones. Also, you have more chances to burn your Pi if you do something wrong with hardware.</p>
+<p>The Arduino is more appropriate to directly handle hardware sensors and actuators: IMU, servo motors, stepper motors, anything which requires more power, etc. &#8211; more info on <a href="https://roboticsbackend.com/when-to-use-arduino-vs-raspberry-pi/">When to use Arduino vs Raspberry Pi</a>.</p>
+<p>All in all, the 2 boards can work together perfectly: The Raspberry Pi as the &#8220;brain&#8221; of the application, and the Arduino as the &#8220;muscles&#8221;, with a Serial communication to make them talk to each other.</p>
+</div><!-- .entry-content -->
+<footer class="entry-meta">
+<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://roboticsbackend.com/category/arduino/" rel="category tag">Arduino Tutorials</a>, <a href="https://roboticsbackend.com/category/raspberry-pi/" rel="category tag">Raspberry Pi Tutorials</a></span> 		<nav id="nav-below" class="post-navigation">
+<span class="screen-reader-text">Post navigation</span>
+</nav><!-- #nav-below -->
+</footer><!-- .entry-meta -->
+</div><!-- .inside-article -->
+</article><!-- #post-## -->
+<div class="separate-containers inside-article">
+<p style="text-align: center;">Did you find this tutorial useful?</p>
+<p style="text-align: center;">Do you want to learn how to program with Arduino?</p>
+<p style="text-align: center;"><strong>If yes, this course is for you:
+</strong></p>
+<p>
+<a href="https://www.udemy.com/course/arduino-programming-for-beginners/?referralCode=4E47D8F2D89017F83F7F" target="_blank" rel="noopener"><img class="wp-image-684 aligncenter" src="https://roboticsbackend.com/wp-content/uploads/2019/07/Arduino_Programming_For_Beginners_Course.jpg" alt="Arduino Programming For Beginners Course" width="327" height="184" /></a>
+</p>
+<p style="text-align: center;"><a href="https://www.udemy.com/course/arduino-programming-for-beginners/?referralCode=4E47D8F2D89017F83F7F" target="_blank" rel="noopener"><strong>&gt;&gt; Arduino Programming For Beginners &lt;&lt;</strong></a></p>
+</div>
+<div class="comments-area">
+<div id="comments">
+<h3 class="comments-title">
+2 thoughts on &ldquo;Raspberry Pi Arduino Serial Communication &#8211; Everything You Need To Know&rdquo;		</h3>
+<ol class="comment-list">
+<li id="comment-708" class="comment even thread-even depth-1">
+<article id="div-comment-708" class="comment-body" itemtype="https://schema.org/Comment" itemscope>
+<footer class="comment-meta">
+<img alt='' src='https://secure.gravatar.com/avatar/927aa4ae7589a7db05c649b08a826da4?s=50&#038;d=identicon&#038;r=g' srcset='https://secure.gravatar.com/avatar/927aa4ae7589a7db05c649b08a826da4?s=100&#038;d=identicon&#038;r=g 2x' class='avatar avatar-50 photo' height='50' width='50' />					<div class="comment-author-info">
+<div class="comment-author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope>
+<cite itemprop="name" class="fn">Dmytryi</cite>						</div><!-- .comment-author -->
+<div class="entry-meta comment-metadata">
+<a href="https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/#comment-708">
+<time datetime="2020-02-12T15:58:44+00:00" itemprop="datePublished">
+February 12, 2020 at 3:58 pm								</time>
+</a>
+</div><!-- .comment-metadata -->
+</div><!-- .comment-author-info -->
+</footer><!-- .comment-meta -->
+<div class="comment-content" itemprop="text">
+<p>You are a hammer!!!</p>
+<span class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-708' data-commentid="708" data-postid="1343" data-belowelement="div-comment-708" data-respondelement="respond" aria-label='Reply to Dmytryi'>Reply</a></span>				</div><!-- .comment-content -->
+</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+<li id="comment-761" class="comment odd alt thread-odd thread-alt depth-1">
+<article id="div-comment-761" class="comment-body" itemtype="https://schema.org/Comment" itemscope>
+<footer class="comment-meta">
+<img alt='' src='https://secure.gravatar.com/avatar/9b4f36fdada07c05995803c655a5d5f9?s=50&#038;d=identicon&#038;r=g' srcset='https://secure.gravatar.com/avatar/9b4f36fdada07c05995803c655a5d5f9?s=100&#038;d=identicon&#038;r=g 2x' class='avatar avatar-50 photo' height='50' width='50' />					<div class="comment-author-info">
+<div class="comment-author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope>
+<cite itemprop="name" class="fn">Filipe Elias Ribeiro</cite>						</div><!-- .comment-author -->
+<div class="entry-meta comment-metadata">
+<a href="https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/#comment-761">
+<time datetime="2020-02-25T16:12:05+00:00" itemprop="datePublished">
+February 25, 2020 at 4:12 pm								</time>
+</a>
+</div><!-- .comment-metadata -->
+</div><!-- .comment-author-info -->
+</footer><!-- .comment-meta -->
+<div class="comment-content" itemprop="text">
+<p>Just the best tutorial and explanation i´ve ever seen aout this topic. Love the anallogy showed as the rasp be the brain and the arduino muscles. Congrets !</p>
+<span class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-761' data-commentid="761" data-postid="1343" data-belowelement="div-comment-761" data-respondelement="respond" aria-label='Reply to Filipe Elias Ribeiro'>Reply</a></span>				</div><!-- .comment-content -->
+</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ol><!-- .comment-list -->
+<div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title">Leave a Comment <small><a rel="nofollow" id="cancel-comment-reply-link" href="/raspberry-pi-arduino-serial-communication/#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://roboticsbackend.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-form-comment"><label for="comment" class="screen-reader-text">Comment</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p><label for="author" class="screen-reader-text">Name</label><input placeholder="Name *" id="author" name="author" type="text" value="" size="30" />
+<label for="email" class="screen-reader-text">Email</label><input placeholder="Email *" id="email" name="email" type="email" value="" size="30" />
+<label for="url" class="screen-reader-text">Website</label><input placeholder="Website" id="url" name="url" type="url" value="" size="30" />
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='1343' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="f03ba444ed" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="213"/></p></form>	</div><!-- #respond -->
+</div><!-- #comments -->
+</div>
+</main><!-- #main -->
+</div><!-- #primary -->
+<div id="right-sidebar" class="widget-area grid-25 tablet-grid-25 grid-parent sidebar" itemtype="https://schema.org/WPSideBar" itemscope>
+<div class="inside-right-sidebar">
+<aside id="sib_subscribe_form-2" class="widget inner-padding widget_sib_subscribe_form"><h2 class="widget-title">Get new content right in your inbox!</h2>			<form id="sib_signup_form_3" method="post" class="sib_signup_form">
+<div class="sib_loader" style="display:none;"><img
+src="https://roboticsbackend.com/wp-includes//images/spinner.gif" alt="loader"></div>
+<input type="hidden" name="sib_form_action" value="subscribe_form_submit">
+<input type="hidden" name="sib_form_id" value="3">
+<input type="hidden" name="sib_form_alert_notice" value="Please fill out this field">
+<div class="sib_signup_box_inside_3">
+<div style="/*display:none*/" class="sib_msg_disp">
+</div>
+<p class="sib-email-area">
+<input type="email" class="sib-email-area" name="email" placeholder="Email address..." required="required">
+</p>
+<p>
+<input type="submit" class="sib-default-btn" value="Subscribe">
+</p>				</div>
+</form>
+<style>
+form#sib_signup_form_3 p.sib-alert-message {
+padding: 6px 12px;
+margin-bottom: 20px;
+border: 1px solid transparent;
+border-radius: 4px;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+form#sib_signup_form_3 p.sib-alert-message-error {
+background-color: #f2dede;
+border-color: #ebccd1;
+color: #a94442;
+}
+form#sib_signup_form_3 p.sib-alert-message-success {
+background-color: #dff0d8;
+border-color: #d6e9c6;
+color: #3c763d;
+}
+form#sib_signup_form_3 p.sib-alert-message-warning {
+background-color: #fcf8e3;
+border-color: #faebcc;
+color: #8a6d3b;
+}			</style>
+</aside><div class="sidebar widget">
+<h2 class="widget-title" style="text-align: left;">Want to learn Arduino programming?</h2>
+<a href="https://www.udemy.com/course/arduino-programming-for-beginners/?referralCode=4E47D8F2D89017F83F7F" target="_blank" rel="noopener"><img class="wp-image-684 alignnone" src="https://roboticsbackend.com/wp-content/uploads/2019/07/Arduino_Programming_For_Beginners_Course.jpg" alt="Arduino Programming For Beginners Course" width="327" height="184" /></a>
+<p style="text-align: center;">
+<a href="https://www.udemy.com/course/arduino-programming-for-beginners/?referralCode=4E47D8F2D89017F83F7F" target="_blank" rel="noopener"><strong>Arduino Programming For Beginners</strong></a></p>
+</div>	</div><!-- .inside-right-sidebar -->
+</div><!-- #secondary -->
+
+</div><!-- #content -->
+</div><!-- #page -->
+<div class="site-footer">
+<footer class="site-info" itemtype="https://schema.org/WPFooter" itemscope>
+<div class="inside-site-info grid-container grid-parent">
+<div class="copyright-bar">
+&copy; 2020 The Robotics Back-End | <a href="https://roboticsbackend.com/robotics-programming-courses/">Courses</a> | <a href="https://roboticsbackend.com/privacy-policy/">Privacy Policy</a> | <a href="https://roboticsbackend.com/contact/">Contact</a>				</div>
+</div>
+</footer><!-- .site-info -->
+</div><!-- .site-footer -->
+<a title="Scroll back to top" rel="nofollow" href="#" class="generate-back-to-top" style="opacity:0;visibility:hidden;" data-scroll-speed="400" data-start-scroll="300">
+<span class="screen-reader-text">Scroll back to top</span>
+</a><script type='text/javascript'>
+/* <![CDATA[ */
+var ctcc_vars = {"expiry":"30","method":"1","version":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/plugins/uk-cookie-consent/assets/js/uk-cookie-consent-js.js?ver=2.3.0'></script>
+<!--[if lte IE 11]>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/themes/generatepress/js/classList.min.js?ver=2.4.1'></script>
+<![endif]-->
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/themes/generatepress/js/menu.min.js?ver=2.4.1'></script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/themes/generatepress/js/a11y.min.js?ver=2.4.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var generatepressNavSearch = {"open":"Open Search Bar","close":"Close Search Bar"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/themes/generatepress/js/navigation-search.min.js?ver=2.4.1'></script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/themes/generatepress/js/back-to-top.min.js?ver=2.4.1'></script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-includes/js/comment-reply.min.js?ver=5.3.2'></script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/plugins/enlighter/resources/mootools-core-yc.js?ver=3.10.0'></script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/plugins/enlighter/resources/EnlighterJS.min.js?ver=3.10.0'></script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-includes/js/wp-embed.min.js?ver=5.3.2'></script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/plugins/easy-table-of-contents/vendor/smooth-scroll/jquery.smooth-scroll.min.js?ver=1.5.5'></script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/plugins/easy-table-of-contents/vendor/js-cookie/js.cookie.min.js?ver=2.0.3'></script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/plugins/easy-table-of-contents/vendor/sticky-kit/jquery.sticky-kit.min.js?ver=1.9.2'></script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/plugins/easy-table-of-contents/vendor/waypoints/jquery.waypoints.min.js?ver=1.9.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var ezTOC = {"smooth_scroll":"1","visibility_hide_by_default":"","width":"auto","scroll_offset":"30"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://roboticsbackend.com/wp-content/plugins/easy-table-of-contents/assets/js/front.min.js?ver=1.7.1'></script>
+<script async="async" type='text/javascript' src='https://roboticsbackend.com/wp-content/plugins/akismet/_inc/form.js?ver=4.1.3'></script>
+<script type="text/javascript">/* <![CDATA[ */EnlighterJS_Config = {"selector":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"language":"generic","theme":"enlighter","indent":4,"hover":"hoverEnabled","showLinenumbers":true,"rawButton":true,"infoButton":false,"windowButton":true,"rawcodeDoubleclick":false,"grouping":true,"cryptex":{"enabled":false,"email":"mail@example.tld"}};!function(){var a=function(a){var b="Enlighter Error: ";console.error?console.error(b+a):console.log&&console.log(b+a)};return window.addEvent?"undefined"==typeof EnlighterJS?void a("Javascript Resources not loaded yet!"):"undefined"==typeof EnlighterJS_Config?void a("Configuration not loaded yet!"):void window.addEvent("domready",function(){EnlighterJS.Util.Init(EnlighterJS_Config.selector.block,EnlighterJS_Config.selector.inline,EnlighterJS_Config)}):void a("MooTools Framework not loaded yet!")}();;/* ]]> */</script>			
+<script type="text/javascript">
+jQuery(document).ready(function($){
+if(!catapultReadCookie("catAccCookies")){ // If the cookie has not been set then show the bar
+$("html").addClass("has-cookie-bar");
+$("html").addClass("cookie-bar-bottom-bar");
+$("html").addClass("cookie-bar-bar");
+}
+});
+</script>
+<div id="catapult-cookie-bar" class=""><div class="ctcc-inner "><span class="ctcc-left-side">This site uses cookies:  <a class="ctcc-more-info-link" tabindex=0 target="_blank" href="https://roboticsbackend.com/privacy-policy/">Find out more.</a></span><span class="ctcc-right-side"><button id="catapultCookie" tabindex=0 onclick="catapultAcceptCookies();">OK</button></span></div><!-- custom wrapper class --></div><!-- #catapult-cookie-bar -->
+</body>
+</html><!-- WP Fastest Cache file was created in 0.19538593292236 seconds, on 26-02-20 18:11:53 -->
