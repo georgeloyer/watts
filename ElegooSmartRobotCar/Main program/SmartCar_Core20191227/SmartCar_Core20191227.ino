@@ -5,7 +5,7 @@
  * @LastEditTime: 2019-08-27 10:45:29
  * @LastEditors: Please set LastEditors
  * @Version: 1.0.1
- * @releaseNote: Move Ultrasonic from A4A5 to A2A3
+ * @ReleaseNote: Move Ultrasonic from A4A5 to A2A3
  */
 #include <IRremote.h>
 #include <Servo.h>
