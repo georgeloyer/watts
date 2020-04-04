@@ -4,7 +4,8 @@
  * @Date: 2019-08-12 18:00:25
  * @LastEditTime: 2019-08-27 10:45:29
  * @LastEditors: Please set LastEditors
- * @Version: 1.0.0
+ * @Version: 1.0.1
+ * @releaseNote: Move Ultrasonic from A4A5 to A2A3
  */
 #include <IRremote.h>
 #include <Servo.h>
@@ -31,8 +32,8 @@
 
 
 /*Arduino pin is connected to the Ultrasonic sensor module*/
-#define ECHO_PIN A4
-#define TRIG_PIN A5
+#define ECHO_PIN A2
+#define TRIG_PIN A3
 
 /*Arduino pin is connected to the Motor drive module*/
 #define ENA 5
