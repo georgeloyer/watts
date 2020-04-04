@@ -20,10 +20,10 @@
 
 DFRobot_INA219_IIC     ina219(&Wire, INA219_I2C_ADDRESS4);
 
-// Revise the following two paramters according to actula reading of the INA219 and the multimeter
+// Revise the following two parameters according to actual reading of the INA219 and the multimeter
 // for linearly calibration
 float ina219Reading_mA = 1000;
-float extMeterReading_mA = 1000;
+float extMeterReading_mA = 1029;
 
 void setup(void) 
 {
@@ -31,12 +31,21 @@ void setup(void)
     while(!Serial);
     
     Serial.println();
+    Serial.println("Initializing INA219...");
     while(ina219.begin() != true) {
-        Serial.println("INA219 begin faild");
+        Serial.println("INA219 begin failed");
         delay(2000);
     }
+    Serial.println("INA219 begin succeeded");
+    Serial.println("init Voltage Range");
+    ina219.setBRNG(eIna219BusVolRange_32V);
+    Serial.println("Voltage Range init completed.");
+    ina219.setPGA(eIna219PGABits_1);
+    ina219.setBADC(eIna219AdcBits_12, eIna219AdcSample_8);
+    ina219.setSADC(eIna219AdcBits_12, eIna219AdcSample_8);
     ina219.linearCalibrate(ina219Reading_mA, extMeterReading_mA);
-    Serial.println();
+    ina219.setMode(eIna219SAndBVolCon);
+    Serial.println("INA219 initialized.");
 }
 
 void loop(void)
