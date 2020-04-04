@@ -4,6 +4,7 @@
  * @Date: 2019-08-12 18:00:25
  * @LastEditTime: 2019-08-27 10:45:29
  * @LastEditors: Please set LastEditors
+ * @Version: 1.0.0
  */
 #include <IRremote.h>
 #include <Servo.h>
