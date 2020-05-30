@@ -932,18 +932,18 @@ void DIY_ClearAllFunctionsXXX(void)
     digitalWrite(ENB, LOW);
 
     /*DIY_MotorControl:Motor Control： Motor Speed、Motor Direction、Motor Time*/
-    DIY_MotorSelection = NULL;
-    DIY_MotorDirection = NULL;
+    DIY_MotorSelection = 0;
+    DIY_MotorDirection = 0;
 
-    DIY_MotorSpeed = NULL;
-    DIY_leftMotorControl_Millis = NULL;
-    DIY_rightMotorControl_Millis = NULL;
+    DIY_MotorSpeed = 0;
+    DIY_leftMotorControl_Millis = 0;
+    DIY_rightMotorControl_Millis = 0;
 
     /*DIY_CarControl:Car Control：Car moving direction、Car Speed、Car moving time*/
-    DIY_CarDirection = NULL;
-    DIY_CarSpeed = NULL;
-    DIY_CarTimer = NULL;
-    DIY_CarControl_Millis = NULL;
+    DIY_CarDirection = 0;
+    DIY_CarSpeed = 0;
+    DIY_CarTimer = 0;
+    DIY_CarControl_Millis = 0;
   }
 }
 
