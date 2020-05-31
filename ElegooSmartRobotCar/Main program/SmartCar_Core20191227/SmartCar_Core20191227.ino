@@ -7,12 +7,15 @@
  * @Version: 1.0.2
  * @ReleaseNote: 1.0.1 Move Ultrasonic from A4A5 to A2A3
  * @ReleaseNote: 1.0.2 Correct spelling on LineTracker
+ * @ReleaseNote: 2.0 Implement for Teensyduino, remove IRcomm, move Bluetooth to Serial5
+ *    Removes MsTimer2.cpp and MsTimer2.h - they are for AVR and Teensyduino is ARM CPU
  */
-#include <IRremote.h>
 #include <Servo.h>
 #include <stdio.h>
 
-#include "HardwareSerial.h"
+// Serial ports are USB for consold using Serial and 
+// Bluetooth hardware serial port 5, pins 20, 21
+#define HWSERIAL Serial5
 
 #include "ArduinoJson-v6.11.1.h" //Use ArduinoJson Libraries
 
@@ -26,11 +29,6 @@
 
 #define KEY_STAR 16728765
 #define KEY_HASH 16732845
-
-
-/*Arduino pin is connected to the IR Receiver*/
-#define RECV_PIN 12
-
 
 /*Arduino pin is connected to the Ultrasonic sensor module*/
 #define ECHO_PIN A2
@@ -58,8 +56,6 @@
 #define carSpeed 180 //PWM(Motor speed/Speed)
 
 Servo servo;             //  Create a DC motor drive object
-IRrecv irrecv(RECV_PIN); //  Create an infrared receive drive object
-decode_results results;  //  Create decoding object
 
 unsigned long IR_PreMillis;
 unsigned long LT_PreMillis;
@@ -111,6 +107,7 @@ enum MOTIONMODE
   RIGHT            /*right*/
 } mov_mode = STOP; /*move mode*/
 
+
 void delays(unsigned long t)
 {
 
@@ -118,10 +115,11 @@ void delays(unsigned long t)
   {
     // getBTData();
     getBTData_Plus();//Bluetooth Communication Data Acquisition
-    getIRData(); //Infrared Communication Data Acquisition
+//    getIRData(); //Infrared Communication Data Acquisition
     delay(1);
   }
 }
+
 /*
 Acquisition Distance: Ultrasound
 */
@@ -223,9 +221,9 @@ void getBTData_Plus(void)
 {
   String comdata = "";
 
-  while ((Serial.available() > 0) && (false == comdata.endsWith("}")))
+  while ((HWSERIAL.available() > 0) && (false == comdata.endsWith("}")))
   {
-    comdata += char(Serial.read());
+    comdata += char(HWSERIAL.read());
     delay(6);
   }
   if ((comdata.length() > 0) && (comdata != "") && (true == comdata.endsWith("}")))
@@ -380,49 +378,6 @@ void getBTData_Plus(void)
   }
 }
 /*
-  Infrared Communication Data Acquisition
-*/
-void getIRData(void)
-{
-
-  if (irrecv.decode(&results))
-  {
-    IR_PreMillis = millis();
-    switch (results.value)
-    {
-    case f:
-      func_mode = IRremote;
-      mov_mode = FORWARD;
-      break; /*forward*/
-    case b:
-      func_mode = IRremote;
-      mov_mode = BACK;
-      break; /*back*/
-    case l:
-      func_mode = IRremote;
-      mov_mode = LEFT;
-      break; /*left*/
-    case r:
-      func_mode = IRremote;
-      mov_mode = RIGHT;
-      break; /*right*/
-    case s:
-      func_mode = IRremote;
-      mov_mode = STOP;
-      break; /*stop*/
-    case KEY1:
-      func_mode = LineTracking;
-      break; /*Line Tracking Mode*/
-    case KEY2:
-      func_mode = ObstaclesAvoidance;
-      break; /*Obstacles Avoidance Mode*/
-    default:
-      break;
-    }
-    irrecv.resume();
-  }
-}
-/*
   Bluetooth remote control mode
 */
 void bluetooth_mode()
@@ -452,40 +407,6 @@ void bluetooth_mode()
   }
 }
 /*
-  Infrared remote control mode
-*/
-void irremote_mode(void)
-{
-  if (func_mode == IRremote)
-  {
-    switch (mov_mode)
-    {
-    case FORWARD:
-      forward(false, carSpeed);
-      break;
-    case BACK:
-      back(false, carSpeed);
-      break;
-    case LEFT:
-      left(false, carSpeed);
-      break;
-    case RIGHT:
-      right(false, carSpeed);
-      break;
-    case STOP:
-      stop();
-      break;
-    default:
-      break;
-    }
-    if (millis() - IR_PreMillis > 500)
-    {
-      mov_mode = STOP;
-      IR_PreMillis = millis();
-    }
-  }
-}
-/*
   Line Tracking Mode
 */
 void line_Tracking_mode(void)
@@ -506,7 +427,6 @@ void line_Tracking_mode(void)
       {
         getBTData_Plus();//Bluetooth data acquisition
         //getBTData();
-        getIRData(); //Infrared data acquisition
       }
       LT_PreMillis = millis();
     }
@@ -517,7 +437,6 @@ void line_Tracking_mode(void)
       {
         getBTData_Plus();//Bluetooth data acquisition
         //getBTData();
-        getIRData(); //Infrared data acquisition
       }
       LT_PreMillis = millis();
     }
@@ -956,10 +875,10 @@ void getDistance_xx(void)
 
 void setup(void)
 {
-  Serial.begin(9600);         //initialization
+  Serial.begin(9600);         //initialize console
+  HWSERIAL.begin(9600);       //initialize bluetooth
   servo.attach(3, 500, 2400); //500: 0 degree  2400: 180 degree
   servo.write(90);            //sets the servo position according to the 90（middle）
-  irrecv.enableIRIn();        //Enable infrared communication NEC
 
   pinMode(ECHO_PIN, INPUT); //Ultrasonic module initialization
   pinMode(TRIG_PIN, OUTPUT);
@@ -980,10 +899,8 @@ void loop(void)
 {
   DIY_Distance = getDistance(); //Ultrasonic measurement distance
   getBTData_Plus();             //Bluetooth data acquisition
-  getIRData();                  //Infrared data acquisition
 
   bluetooth_mode();           //Bluetooth remote mode
-  irremote_mode();            //Infrared NEC remote control mode
   line_Tracking_mode();       //Line Tracking Mode
   obstacles_avoidance_mode(); //Obstacles Avoidance Mode
 
