@@ -228,7 +228,7 @@ void getBTData_Plus(void)
   }
   if ((comdata.length() > 0) && (comdata != "") && (true == comdata.endsWith("}")))
   {
-    //Serial.print(comdata);
+    Serial.println(comdata);
     //comdata = "{\"N\":\"2\",\"D1\":1}";
     //{"N":2,"D1":1}
     StaticJsonDocument<200> doc;                                //Create a JsonDocument object
@@ -256,7 +256,7 @@ void getBTData_Plus(void)
         DIY_MotorSpeed = doc["D3"];
 
         //Serial.print("{ok}");
-        Serial.print('{' + CommandSerialNumber + "_ok}");
+        Serial.println('{' + CommandSerialNumber + "_ok}");
         break;
       case 4: /*Motion module  processing <command：N 4>*/
         func_mode = DIY_CarControl;
@@ -271,25 +271,25 @@ void getBTData_Plus(void)
         DIY_CarDirectionxxx = doc["D1"];
         DIY_CarSpeedxxx = doc["D2"];
         //Serial.print("{ok}");
-        Serial.print('{' + CommandSerialNumber + "_ok}");
+        Serial.println('{' + CommandSerialNumber + "_ok}");
         break;
       case 5: /*Clear mode  processing <command：N 5>*/
         func_mode = DIY_ClearAllFunctions;
         //Serial.print("{ok}");
-        Serial.print('{' + CommandSerialNumber + "_ok}");
+        Serial.println('{' + CommandSerialNumber + "_ok}");
         break;
       case 3: /*Remote switching mode  processing <command：N 3>*/
         if (1 == doc["D1"]) // Line Tracking Mode
         {
           func_mode = LineTracking;
           //Serial.print("{ok}");
-          Serial.print('{' + CommandSerialNumber + "_ok}");
+          Serial.println('{' + CommandSerialNumber + "_ok}");
         }
         else if (2 == doc["D1"]) //Obstacles Avoidance Mode
         {
           func_mode = ObstaclesAvoidance;
           //Serial.print("{ok}");
-          Serial.print('{' + CommandSerialNumber + "_ok}");
+          Serial.println('{' + CommandSerialNumber + "_ok}");
         }
         break;
       case 2: /*Remote switching mode  processing <command：N 2>*/
@@ -299,35 +299,35 @@ void getBTData_Plus(void)
           func_mode = Bluetooth;
           mov_mode = LEFT;
           //Serial.print("{ok}");
-          Serial.print('{' + CommandSerialNumber + "_ok}");
+          Serial.println('{' + CommandSerialNumber + "_ok}");
         }
         else if (2 == doc["D1"])
         {
           func_mode = Bluetooth;
           mov_mode = RIGHT;
           //Serial.print("{ok}");
-          Serial.print('{' + CommandSerialNumber + "_ok}");
+          Serial.println('{' + CommandSerialNumber + "_ok}");
         }
         else if (3 == doc["D1"])
         {
           func_mode = Bluetooth;
           mov_mode = FORWARD;
           //Serial.print("{ok}");
-          Serial.print('{' + CommandSerialNumber + "_ok}");
+          Serial.println('{' + CommandSerialNumber + "_ok}");
         }
         else if (4 == doc["D1"])
         {
           func_mode = Bluetooth;
           mov_mode = BACK;
           //Serial.print("{ok}");
-          Serial.print('{' + CommandSerialNumber + "_ok}");
+          Serial.println('{' + CommandSerialNumber + "_ok}");
         }
         else if (5 == doc["D1"])
         {
           func_mode = Bluetooth;
           mov_mode = STOP;
           //Serial.print("{ok}");
-          Serial.print('{' + CommandSerialNumber + "_ok}");
+          Serial.println('{' + CommandSerialNumber + "_ok}");
         }
         break;
       default:
@@ -599,12 +599,12 @@ void DIY_UltrasoundModuleStatus_Plus(uint8_t is_get) //Ultrasonic module process
     if (DIY_Distance <= 40)
     {
       // Serial.print("{true}");
-      Serial.print('{' + CommandSerialNumber + "_true}");
+      Serial.println('{' + CommandSerialNumber + "_true}");
     }
     else
     {
-      //Serial.print("{false}");
-      Serial.print('{' + CommandSerialNumber + "_false}");
+      //Serial.println("{false}");
+      Serial.println('{' + CommandSerialNumber + "_false}");
     }
   }
   else if (2 == is_get) //Ultrasonic is_get data
@@ -612,7 +612,7 @@ void DIY_UltrasoundModuleStatus_Plus(uint8_t is_get) //Ultrasonic module process
     char toString[10];
     sprintf(toString, "%d", DIY_Distance);
     // Serial.print(toString);
-    Serial.print('{' + CommandSerialNumber + '_' + toString + '}');
+    Serial.println('{' + CommandSerialNumber + '_' + toString + '}');
   }
 }
 /*
@@ -626,12 +626,12 @@ void DIY_TraceModuleStatus_Plus(uint8_t is_get) //Tracking module processing
     if (LineTracking_Read_Left)
     {
       //Serial.print("{true}");
-      Serial.print('{' + CommandSerialNumber + "_true}");
+      Serial.println('{' + CommandSerialNumber + "_true}");
     }
     else
     {
       //Serial.print("{false}");
-      Serial.print('{' + CommandSerialNumber + "_false}");
+      Serial.println('{' + CommandSerialNumber + "_false}");
     }
   }
   else if (1 == is_get) /*Get traces on the middle*/
@@ -639,12 +639,12 @@ void DIY_TraceModuleStatus_Plus(uint8_t is_get) //Tracking module processing
     if (LineTracking_Read_Middle)
     {
       //Serial.print("{true}");
-      Serial.print('{' + CommandSerialNumber + "_true}");
+      Serial.println('{' + CommandSerialNumber + "_true}");
     }
     else
     {
       //Serial.print("{false}");
-      Serial.print('{' + CommandSerialNumber + "_false}");
+      Serial.println('{' + CommandSerialNumber + "_false}");
     }
   }
   else if (2 == is_get)
@@ -653,12 +653,12 @@ void DIY_TraceModuleStatus_Plus(uint8_t is_get) //Tracking module processing
     if (LineTracking_Read_Right)
     {
       //Serial.print("{true}");
-      Serial.print('{' + CommandSerialNumber + "_true}");
+      Serial.println('{' + CommandSerialNumber + "_true}");
     }
     else
     {
       //Serial.print("{false}");
-      Serial.print('{' + CommandSerialNumber + "_false}");
+      Serial.println('{' + CommandSerialNumber + "_false}");
     }
   }
 }
@@ -752,7 +752,7 @@ void DIY_CarControl_Plus(uint8_t is_CarDirection, uint8_t is_CarSpeed, uint8_t i
         if (CarControl_return == false)
         {
 
-          Serial.print('{' + CommandSerialNumber + "_ok}");
+          Serial.println('{' + CommandSerialNumber + "_ok}");
           CarControl_return = true;
         }
       }
@@ -851,18 +851,18 @@ void DIY_ClearAllFunctionsXXX(void)
     digitalWrite(ENB, LOW);
 
     /*DIY_MotorControl:Motor Control： Motor Speed、Motor Direction、Motor Time*/
-    DIY_MotorSelection = 0;
-    DIY_MotorDirection = 0;
+    DIY_MotorSelection = (uint8_t)NULL;
+    DIY_MotorDirection = (uint8_t)NULL;
 
-    DIY_MotorSpeed = 0;
-    DIY_leftMotorControl_Millis = 0;
-    DIY_rightMotorControl_Millis = 0;
+    DIY_MotorSpeed = (uint8_t)NULL;
+    DIY_leftMotorControl_Millis = (uint8_t)NULL;
+    DIY_rightMotorControl_Millis = (uint8_t)NULL;
 
     /*DIY_CarControl:Car Control：Car moving direction、Car Speed、Car moving time*/
-    DIY_CarDirection = 0;
-    DIY_CarSpeed = 0;
-    DIY_CarTimer = 0;
-    DIY_CarControl_Millis = 0;
+    DIY_CarDirection = (uint8_t)NULL;
+    DIY_CarSpeed = (uint8_t)NULL;
+    DIY_CarTimer = (uint8_t)NULL;
+    DIY_CarControl_Millis = (uint8_t)NULL;
   }
 }
 
@@ -893,6 +893,7 @@ void setup(void)
   pinMode(LineTracking_Pin_Right, INPUT); //Infrared tracking module port configuration
   pinMode(LineTracking_Pin_Middle, INPUT);
   pinMode(LineTracking_Pin_Left, INPUT);
+  Serial.println("Watts is initialized.");
 }
 
 void loop(void)
