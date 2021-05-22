@@ -1,0 +1,77 @@
+# Tensorflow packages
+sudo apt-get install -y libatlas-base-dev libhdf5-dev libc-ares-dev libeigen3-dev build-essential libsdl-ttf2.0-0 python-pygame festival python3-h5py
+
+# dependencies to install Tensorflow within python
+sudo pip3 install virtualenv Pillow numpy pygame
+
+# Install an Adafruit fork of a program that uses the MobileNet V2 model to detect objects. 
+# After installing, start up a virtualenv and then activate the environment.
+git clone --depth 1 https://github.com/adafruit/rpi-vision.git
+cd rpi-vision/
+python3 -m virtualenv -p $(which python3) .venv
+source .venv/bin/activate
+
+# From inside the virtualenv, download and install tensorflow
+wget https://raw.githubusercontent.com/PINTO0309/Tensorflow-bin/master/tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh
+chmod a+x tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh 
+./tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh 
+
+# now install tensorflow and prepare to reboot
+pip3 install --upgrade setuptools
+pip3 install tensorflow-*-linux_armv7l.whl
+pip3 install -e .
+sudo reboot
+
+# To run, run as root and kick off the virtualenv
+# Note: without sudo bash, you get Module Not Found Error: no module named rpi-vision
+#   because it was only installed within the virtual env (venv)
+sudo bash
+cd Projects/rpi-vision && . .venv/bin/activate
+
+# To run a program that will display the object it sees on screen
+python3 tests/pitft_labeled_output.py --tflite
+
+# Now start holding up various items in front of the camera and 
+# it should display what it thinks it sees, which isn't actually 
+# what the item may be. Some items that it's pretty good about 
+# identifying are coffee mugs and animals
+#
+# As an added bonus, you can hook up a pair of headphones or a 
+# speaker to the Raspberry Pi and it will actually tell you what 
+# it is detecting.
+
+
+mqtt
+# install broker
+> sudo apt-get install mosquitto
+# once installed the mosquitto service is running:
+#   > sudo systemctl status mosquitto
+#   > sudo systemctl stop mosquitto
+#   > sudo systemctl start mosquitto
+
+# install client for publish and subscribe
+> sudo pip3 install paho-mqtt
+# in python
+#   import paho.mqtt.client as mqtt
+#
+# This installation of mosquitto and paho-mqtt works in the non-virtualenv.
+# Inside the virtualenv used with tensorflow, you must install packages there
+# even though they have been installed for all users outside of the virtualenv.
+#
+# For example, installing paho-mqtt in the virtualenv using:
+# > sudo pip3 install paho-mqtt
+# reports that the package is installed (and gives the location), but the 
+# package cannot be imported.  You can validate that it is not in the virtualenv
+# by running:
+# > pip list
+# If the package is not listed within the virtualenv, then it ain't there!
+# Run the command:
+# > pip install paho-mqtt
+# and it reports it is installing and the import works after that.
+
+# ~/envs/
+#   virtualenv1
+#   virtualenv2
+#   virtualenv3
+
+# the tensorflow download script has a ton of packages in a tensorflow...whl (wheel file)
