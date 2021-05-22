@@ -1,0 +1,11 @@
+mqtt installlation and setup
+
+Install the mosquitto mqtt server to get started:
+
+> sudo apt-get install mosquitto
+
+The installation sets up mosquitto as a daemon without any other work. Nice!
+
+Install the paho.python mqtt client
+
+> sudo pip3 install paho-mqtt

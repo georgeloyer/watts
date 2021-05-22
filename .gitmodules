@@ -1,0 +1,6 @@
+[submodule "mqtt/paho.mqtt.python"]
+	path = mqtt/paho.mqtt.python
+	url = https://github.com/eclipse/paho.mqtt.python
+[submodule "mqtt/paho.mqtt.testing"]
+	path = mqtt/paho.mqtt.testing
+	url = https://github.com/eclipse/paho.mqtt.testing.git
