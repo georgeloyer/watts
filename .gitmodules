@@ -7,3 +7,6 @@
 [submodule "pyautogui"]
 	path = pyautogui
 	url = https://github.com/asweigart/pyautogui
+[submodule "seeed-voicecard"]
+	path = seeed-voicecard
+	url = https://github.com/HinTak/seeed-voicecard
