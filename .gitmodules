@@ -8,7 +8,7 @@
 	path = pyautogui
 	url = https://github.com/asweigart/pyautogui
 [submodule "seeed-voicecard"]
-	path = seeed-voicecard
+	path = Braincraft/seeed-voicecard
 	url = https://github.com/HinTak/seeed-voicecard
 [submodule "Braincraft/rpi-vision"]
 	path = Braincraft/rpi-vision
