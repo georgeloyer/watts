@@ -10,3 +10,6 @@
 [submodule "seeed-voicecard"]
 	path = seeed-voicecard
 	url = https://github.com/HinTak/seeed-voicecard
+[submodule "Braincraft/rpi-vision"]
+	path = Braincraft/rpi-vision
+	url = https://github.com/adafruit/rpi-vision.git
