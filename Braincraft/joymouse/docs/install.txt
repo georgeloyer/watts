@@ -1,0 +1,37 @@
+Installing joymouse
+
+Install the pyautogui library and its python dependencies
+sudo pip3 install pyautogui
+
+Install the python3-xlib library 
+sudo apt-get install python3-xlib
+
+Set the DISPLAY environment variable in the 'pi' user .bashrc
+The :0 display is the default for the display that will be written to
+DISPLAY=:0
+
+Create links for three files: the joymouse daemon, its wrapper script and the service file
+sudo ln joymouse /usr/local/bin/joymouse
+sudo ln run-joymouse.sh /usr/local/bin/run-joymouse.sh
+sudo ln joymouse.service /usr/local/lib/systemd/system/joymouse.service
+sudo ln joymouse.service /etc/systemd/system/joymouse.service
+
+The systemd.service entries are typical for a forking daemon
+There is one exception and that is the User is run as pi instead of root
+User=pi
+
+This daemon must be run as pi because the default xhost permissions on the 
+Raspberry Pi allow the pi user to control the display.  Even though you 
+can add other users to those allowed to control the display, like this:
+
+> xhost +si:localuser:root
+
+The change in permissions for xhost is lost with the session and I was unable
+to find a way to give the permission after a reboot, so systemd would always
+fail to start up the daemon because it did not have permission to use the X
+windows system.
+
+I've noticed that on reboot, the joymouse daemon does not at first seem to have
+come up successfully, but after about a minute, the process appears in the
+ps -ef and the status reports the daemon as 'activating' and with a subprocess
+id.  And it works on the screen.

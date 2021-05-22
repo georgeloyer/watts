@@ -1,0 +1,29 @@
+################################################################################
+# joymouse.service
+#
+# This service unit is for systemd startup of joymouse
+# By George Loyer
+# Licensed under GPL V2
+#
+################################################################################
+# This configuration file is in the joymouse project folder
+# Create a symlink to it from the /usr/local/lib/systemd/system directory.
+# Create a symlink to it from the /etc/systemd/system directory.
+# Runs as root so it can create the /run/joymouse.pid PID file
+################################################################################
+
+[Unit]
+Description=joystick/button to mouse daemon
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=forking
+PIDFile=/run/joymouse.pid
+Restart=always
+RestartSec=10
+User=pi
+ExecStart=/usr/local/bin/run-joymouse.sh
+
+[Install]
+WantedBy=multi-user.target

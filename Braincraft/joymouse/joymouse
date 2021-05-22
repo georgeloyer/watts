@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+"""
+joymouse
+Uses the digital IO pins connected to the joystick
+and the button on the Braincraft board to click on
+the mouse and move the cursor as if the mouse were
+in use.
+The running version of this daemon is at /usr/local/bin
+"""
+
+import time                         # sleep
+import board                        # board macros
+from digitalio import DigitalInOut, Direction, Pull     # digital IO macros
+import pyautogui                    # mouse movement library
+import os                           # for process id and PID file
+
+# Set up PID file
+JOYMOUSE_PID = '/run/joymouse.pid'
+
+# setup the initial mouse position
+x,y = pyautogui.size()
+pyautogui.moveTo(x/2, y/2)
+incMove = 5     # minimum number of pixels to move
+
+# set up the digital IO pins
+BUTTON_PIN = board.D17
+JOYDOWN_PIN = board.D27
+JOYLEFT_PIN = board.D22
+JOYUP_PIN = board.D23
+JOYRIGHT_PIN = board.D24
+JOYSELECT_PIN = board.D16
+
+buttons = [BUTTON_PIN, JOYUP_PIN, JOYDOWN_PIN,
+           JOYLEFT_PIN, JOYRIGHT_PIN, JOYSELECT_PIN]
+
+# and initialize the IO pins
+for i,pin in enumerate(buttons):
+  buttons[i] = DigitalInOut(pin)
+  buttons[i].direction = Direction.INPUT
+  buttons[i].pull = Pull.UP
+button, joyup, joydown, joyleft, joyright, joyselect = buttons
+
+# report the start of the daemon
+print("STARTING joymouse daemon")
+
+# write the process id in joymouse.pid for systemd forking
+try:
+    with open(JOYMOUSE_PID, "w+") as pidfile:
+        pidfile.write(str(os.getpid()))
+        print("Wrote PID to pidfile")
+except IOError as err_str:
+    print(err_str)
+except:
+    print("Unknown error occurred writing to pid file")
+
+while True:
+  if not button.value:
+    pyautogui.click()
+  if not joyup.value:
+    pyautogui.move(0,-incMove)
+  if not joydown.value:
+    pyautogui.move(0,incMove)
+  if not joyleft.value:
+    pyautogui.move(-incMove,0)
+  if not joyright.value:
+    pyautogui.move(incMove,0)
+  if not joyselect.value:
+    pyautogui.click()
+
+  time.sleep(0.15)      # debounce time
