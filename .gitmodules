@@ -4,3 +4,6 @@
 [submodule "mqtt/paho.mqtt.testing"]
 	path = mqtt/paho.mqtt.testing
 	url = https://github.com/eclipse/paho.mqtt.testing.git
+[submodule "pyautogui"]
+	path = pyautogui
+	url = https://github.com/asweigart/pyautogui
